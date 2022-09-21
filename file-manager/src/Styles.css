@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 .register-container {
     width: 100%;
     height: 100vh;
@@ -30,6 +34,12 @@
     transition: 0.5s;
 }
 
+.auth-button a {
+    color: white;
+    background: transparent;
+    text-decoration: none;
+}
+
 .auth-button {
     border: 1px solid rgb(97, 97, 241);
     background-color: rgb(97, 97, 241);
@@ -47,4 +57,64 @@
     color: rgb(97, 97, 241);
     background-color: white;
     transition: 0.5s;
+}
+
+.auth-button:hover a{
+    color: rgb(97, 97, 241);
+    transition: 0.5s;
+}
+
+.file-manager-container {
+    height: 100vh;
+    width: 100%;
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding-top: 20px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 15px;
+    background-color: rgb(97, 97, 241);
+    width: 200px;
+    font-size: 20px;
+}
+
+
+.pin-button {
+    border-radius: 15px;
+    padding: 12px;
+    background-color: rgb(97, 97, 241);
+    color: white;
+    width: 225px;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.file-manager-upload-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(97, 97, 241);
+    padding: 20px;
+    border-radius: 20px;
+    width: 50%;
+    margin: auto;
+}
+
+.file-manager-hash-list-item a {
+    color: white;
+    text-decoration: none;
+}
+
+.file-manager-hash-list-item a:hover {
+    color: white;
+    text-decoration: underline;
 }
