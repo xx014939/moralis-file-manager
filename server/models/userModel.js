@@ -5,17 +5,9 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    username: {
-        type: String,
+    file_hash_array: {
+        type: Array,
         required: true
-    },
-    stat_upgrade: {
-        type: String,
-        required: true
-    },
-    wallet_balance: {
-        type: String,
-        required: false
     }
 })
 
