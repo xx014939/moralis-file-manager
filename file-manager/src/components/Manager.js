@@ -7,6 +7,8 @@ async function getHashArray (wallet_address) {
   return response
 }
 
+// Sign function. Call update method of contract and push up user address + array
+
 function Manager() {
 
   const [file, setFile] = useState()
@@ -50,6 +52,10 @@ function Manager() {
   )
 
   console.log(response)
+
+  // Send response.data.ipfsHash to backend server
+
+  // Creative new div element with new hash
 
   // get the hash
   setIPFSHASH(response.data.IpfsHash)
