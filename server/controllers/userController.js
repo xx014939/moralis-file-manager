@@ -5,7 +5,7 @@ const User = require('../models/userModel')
 const e = require('cors')
 
 const registerUser = asyncHandler ( async (req, res) => {
-    const {wallet_address, username} = req.body
+    const {wallet_address} = req.body
 
     // Check if user already exists
     const userExists = await User.findOne({wallet_address})
@@ -42,7 +42,9 @@ const getUser = asyncHandler(async (req, res) => {
         res.json({
             message: 'User Successfully Found',
             address: wallet_address,
-            file_hash_array: user.file_hash_array
+            file_hash_array: user.file_hash_array,
+            __id: user.id
+
         })
     } else {
         return res.status(400).json({ message: err.message })
