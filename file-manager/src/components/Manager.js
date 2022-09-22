@@ -54,23 +54,17 @@ function Manager() {
   console.log(response)
 
   // Send response.data.ipfsHash to backend server
-
   let latestHash = response.data.IpfsHash
   let secondResponse = await axios.post('http://localhost:3002/wallet', {wallet_address: '0x755f830e1a13b63a7d5c5550a0e02d9228c8db74'})
-
-  console.log(secondResponse.data)
 
   let oldHashArray = secondResponse.data.file_hash_array
   oldHashArray.push(latestHash)
 
-  let deleteResponse = await axios.delete(`http://localhost:3002/${secondResponse.data.__id}`)
-  console.log(deleteResponse, 'delete response')
+  axios.delete(`http://localhost:3002/${secondResponse.data.__id}`)
 
-  let createNew = await axios.post('http://localhost:3002/register',
+  axios.post('http://localhost:3002/register',
   {wallet_address: '0x755f830e1a13b63a7d5c5550a0e02d9228c8db74',
   file_hash_array: oldHashArray})
-
-  console.log('create response', createNew)
 
 
 
