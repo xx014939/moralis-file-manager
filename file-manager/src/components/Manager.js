@@ -111,9 +111,6 @@ function Manager() {
       <div className='file-manager-hash-list-container'>
         <h2>Existing Hash List</h2>
         <div className='file-manager-hash-list'>
-          <div className='file-manager-hash-list-item'><a target={'_blank'} href='#'>NUMBER1</a></div>
-          <div className='file-manager-hash-list-item'><a target={'_blank'} href='#'>NUMBER2</a></div>
-          <div className='file-manager-hash-list-item'><a target={'_blank'} href='#'>NUMBER3</a></div>
         </div>
       </div>
     </div>
