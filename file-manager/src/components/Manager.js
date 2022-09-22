@@ -78,7 +78,7 @@ function Manager() {
 
     let innerElement = document.createElement("a")
     innerElement.target = `{'_blank'}`
-    innerElement.href = '#'
+    innerElement.href = `https://yourmetaworld.mypinata.cloud/ipfs/${newArray[0]}`
     innerElement.innerHTML = newArray[0]
 
     outerElement.append(innerElement)
@@ -103,7 +103,7 @@ function Manager() {
 
       let innerElement = document.createElement("a")
       innerElement.target = `{'_blank'}`
-      innerElement.href = '#'
+      innerElement.href = `https://yourmetaworld.mypinata.cloud/ipfs/${oldHashArray[i]}`
       innerElement.innerHTML = oldHashArray[i]
 
       outerElement.append(innerElement)
