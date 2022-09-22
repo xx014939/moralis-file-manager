@@ -119,7 +119,7 @@ function SignContract () {
                     console.log(response)
                     document.cookie = `userExists=${response}`
                 }}>Authenticate</button>
-                <input type="text" id="latestHash"></input>
+                <input type="text" id="latestHash" style={{marginTop: '20px', padding: '5px'}}></input>
                 <button className="pin-button" onClick={async () => {
                     let currentCookieValue = getCookieValue('userExists')
                     console.log(currentCookieValue)
@@ -148,7 +148,7 @@ function SignContract () {
                         };
                         runContractFunction({ params: addHash })
                     }
-                }}>Add Latest Hash</button>
+                }}>Add Hash</button>
             </div>
         </div>
     )
