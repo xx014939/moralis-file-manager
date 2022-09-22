@@ -14,14 +14,8 @@ function Register() {
             <div className="register-form-container">
                 <div><h2 className="register-title">Interplanetary File Manager</h2></div>
                 <div className="auth-button" onClick={() => {
-                    if (user) {
-                        setWalletAddress(user.get("ethAddress"))
-                    } else {
-                        authenticate();
-                        setInterval(() => {
-                            setWalletAddress(user.get("ethAddress"))
-                        }, 5000);
-                    }
+                    authenticate();
+                    setWalletAddress(user.get("ethAddress"))
                     }}>
                     <a href='#file-manager'>Authenticate Wallet</a>
                 </div>

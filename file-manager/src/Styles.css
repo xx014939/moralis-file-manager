@@ -95,6 +95,7 @@ input[type="file"] {
     width: 225px;
     margin-top: 20px;
     font-size: 20px;
+    text-decoration: none;
 }
 
 .file-manager-upload-form {
@@ -117,4 +118,26 @@ input[type="file"] {
 .file-manager-hash-list-item a:hover {
     color: white;
     text-decoration: underline;
+}
+
+.sign-contract-container {
+    height: 100vh;
+    width: 100%;
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding-top: 20px;
+    border-top: 2px solid rgb(97, 97, 241);
+}
+
+.sign-contract-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(97, 97, 241);
+    padding: 20px;
+    border-radius: 20px;
+    width: 50%;
+    margin: auto;
 }

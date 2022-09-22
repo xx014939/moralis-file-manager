@@ -1,38 +1,26 @@
 import { useState } from 'react';
 import FormData from 'form-data';
 import axios from 'axios'; 
+import { useMoralis, useWeb3Contract  } from "react-moralis";
 
 async function getHashArray (wallet_address) {
   const response = await axios.post('http://localhost:3002/wallet', {address: `${wallet_address}`})
   return response
 }
 
-// Sign function. Call update method of contract and push up user address + array
+function getCookieValue (cookieName) {
+  let cookieValue = document.cookie
+  .split('; ')
+  .find((row) => row.startsWith(`${cookieName}=`))
+  ?.split('=')[1];
 
-const signHash = () => {
-  const { data, error, runContractFunction, isFetching, isLoading } =
-  useWeb3Contract({
-    abi: usdcEthPoolAbi,
-    contractAddress: usdcEthPoolAddress,
-    functionName: "observe",
-    params: {
-      secondsAgos: [0, 10],
-    },
-  });
+  return cookieValue
 }
-
-// Contract Hash --> 0xA068328C00e400D9D0B8B4E9D20e1a64aE8AcD97
-
-// MOVE THIS COMPONENT INTO REGISTER.JS, SO YOU DON'T HAVE TO CALL ALL THE MORALIS STUFF AGAIN
-// SIGN HASH SHOULD BE ONCLICK FOR THE SIGN BUTTON. 
-// YOU'RE CALLING THE NEWUSER METHOD, FOLLOWED BY THE ADDHASH METHOD
-
 
 function Manager() {
 
   const [file, setFile] = useState()
   const [myipfsHash, setIPFSHASH] = useState('')
- 
 
   const handleFile=async (fileToHandle) =>{
 
@@ -73,34 +61,54 @@ function Manager() {
   console.log(response)
 
   // Send response.data.ipfsHash to backend server
-  let latestHash = response.data.IpfsHash
-  let secondResponse = await axios.post('http://localhost:3002/wallet', {wallet_address: '0x755f830e1a13b63a7d5c5550a0e02d9228c8db74'})
-
-  let oldHashArray = secondResponse.data.file_hash_array
-  oldHashArray.push(latestHash)
-
-  axios.delete(`http://localhost:3002/${secondResponse.data.__id}`)
-
-  axios.post('http://localhost:3002/register',
-  {wallet_address: '0x755f830e1a13b63a7d5c5550a0e02d9228c8db74',
-  file_hash_array: oldHashArray})
-
-
-
-
-  // Creative new div element with new hash
   let hashElementList = document.querySelector('.file-manager-hash-list')
-  for (let i = 0; i < oldHashArray.length; i++) {
+  let latestHash = response.data.IpfsHash
+  let userAddress = getCookieValue('walletAddress')
+  let secondResponse = await axios.post('http://localhost:3002/wallet', {wallet_address: `${userAddress}`})
+
+  if (secondResponse.data.message === 'false' || secondResponse.data.message === false) {
+    let newArray = []
+    newArray.push(latestHash)
+    axios.post('http://localhost:3002/register',
+    {wallet_address: `${userAddress}`,
+    file_hash_array: newArray})
+
     let outerElement = document.createElement("div")
     outerElement.classList.add('file-manager-hash-list-item')
 
     let innerElement = document.createElement("a")
     innerElement.target = `{'_blank'}`
     innerElement.href = '#'
-    innerElement.innerHTML = oldHashArray[i]
+    innerElement.innerHTML = newArray[0]
 
     outerElement.append(innerElement)
     hashElementList.append(outerElement)
+
+  } else {
+    let oldHashArray = secondResponse.data.file_hash_array
+    oldHashArray.push(latestHash)
+    let deletedResponse = await axios.delete(`http://localhost:3002/${secondResponse.data.__id}`)
+
+    if (deletedResponse) {
+      axios.post('http://localhost:3002/register',
+      {wallet_address: `${userAddress}`,
+      file_hash_array: oldHashArray})
+    
+    }
+
+    // Creative new div element with new hash
+    for (let i = 0; i < oldHashArray.length; i++) {
+      let outerElement = document.createElement("div")
+      outerElement.classList.add('file-manager-hash-list-item')
+
+      let innerElement = document.createElement("a")
+      innerElement.target = `{'_blank'}`
+      innerElement.href = '#'
+      innerElement.innerHTML = oldHashArray[i]
+
+      outerElement.append(innerElement)
+      hashElementList.append(outerElement)
+    }
   }
 
   // get the hash
@@ -119,7 +127,7 @@ function Manager() {
           Upload
         </label>
         <button className='pin-button' onClick={()=>handleFile(file)}>Pin</button>
-        <button className='pin-button'>Sign</button>
+        <a href='#signContract' className='pin-button' style={{maxWidth: '200px'}}>Sign?</a>
       </div>
       <div className='file-manager-hash-list-container'>
         <h2>Existing Hash List</h2>

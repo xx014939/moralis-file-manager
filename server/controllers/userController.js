@@ -47,7 +47,9 @@ const getUser = asyncHandler(async (req, res) => {
 
         })
     } else {
-        return res.status(400).json({ message: err.message })
+        return res.json({
+          message: 'false'
+        })
     }
   })
 

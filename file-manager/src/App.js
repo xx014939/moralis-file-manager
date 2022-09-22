@@ -1,5 +1,6 @@
 import Register from './components/Register';
 import Manager from './components/Manager';
+import SignContract from './components/SignContract';
 import './Styles.css';
 
 
@@ -8,6 +9,7 @@ function App() {
     <div>
       <div><Register/></div>
       <div><Manager/></div>
+      <div><SignContract/></div>
     </div>
   );
 }
