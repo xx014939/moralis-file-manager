@@ -76,6 +76,19 @@ function Manager() {
 
 
   // Creative new div element with new hash
+  let hashElementList = document.querySelector('.file-manager-hash-list')
+  for (let i = 0; i < oldHashArray.length; i++) {
+    let outerElement = document.createElement("div")
+    outerElement.classList.add('file-manager-hash-list-item')
+
+    let innerElement = document.createElement("a")
+    innerElement.target = `{'_blank'}`
+    innerElement.href = '#'
+    innerElement.innerHTML = oldHashArray[i]
+
+    outerElement.append(innerElement)
+    hashElementList.append(outerElement)
+  }
 
   // get the hash
   setIPFSHASH(response.data.IpfsHash)
