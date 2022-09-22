@@ -9,6 +9,8 @@ async function getHashArray (wallet_address) {
 
 // Sign function. Call update method of contract and push up user address + array
 
+// Contract Hash --> 0xcfEd520ac45F7162F6cD3C532D1e8e45deb08949
+
 function Manager() {
 
   const [file, setFile] = useState()
