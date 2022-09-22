@@ -9,7 +9,24 @@ async function getHashArray (wallet_address) {
 
 // Sign function. Call update method of contract and push up user address + array
 
-// Contract Hash --> 0xcfEd520ac45F7162F6cD3C532D1e8e45deb08949
+const signHash = () => {
+  const { data, error, runContractFunction, isFetching, isLoading } =
+  useWeb3Contract({
+    abi: usdcEthPoolAbi,
+    contractAddress: usdcEthPoolAddress,
+    functionName: "observe",
+    params: {
+      secondsAgos: [0, 10],
+    },
+  });
+}
+
+// Contract Hash --> 0xA068328C00e400D9D0B8B4E9D20e1a64aE8AcD97
+
+// MOVE THIS COMPONENT INTO REGISTER.JS, SO YOU DON'T HAVE TO CALL ALL THE MORALIS STUFF AGAIN
+// SIGN HASH SHOULD BE ONCLICK FOR THE SIGN BUTTON. 
+// YOU'RE CALLING THE NEWUSER METHOD, FOLLOWED BY THE ADDHASH METHOD
+
 
 function Manager() {
 

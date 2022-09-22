@@ -19,6 +19,17 @@ contract FileManager {
         counter++;
     }
 
+    // Check if user exists
+    function doesUserExist() public view returns (bool){
+        for (uint i = 0; i < counter; i++) {
+            if (users[i].userAddress == msg.sender) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // Pushed a piece of data to a user
     function addData(uint256 _id, string _data) public {
         users[_id].data.push(_data);
