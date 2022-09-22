@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useMoralis, useWeb3Contract  } from "react-moralis";
 
 async function getHashArray (wallet_address) {
-  const response = await axios.post('http://localhost:3002/wallet', {address: `${wallet_address}`})
+  const response = await axios.post('https://fierce-bayou-82397.herokuapp.com/wallet', {address: `${wallet_address}`})
   return response
 }
 
@@ -64,12 +64,12 @@ function Manager() {
   let hashElementList = document.querySelector('.file-manager-hash-list')
   let latestHash = response.data.IpfsHash
   let userAddress = getCookieValue('walletAddress')
-  let secondResponse = await axios.post('http://localhost:3002/wallet', {wallet_address: `${userAddress}`})
+  let secondResponse = await axios.post('https://fierce-bayou-82397.herokuapp.com/wallet', {wallet_address: `${userAddress}`})
 
   if (secondResponse.data.message === 'false' || secondResponse.data.message === false) {
     let newArray = []
     newArray.push(latestHash)
-    axios.post('http://localhost:3002/register',
+    axios.post('https://fierce-bayou-82397.herokuapp.com/register',
     {wallet_address: `${userAddress}`,
     file_hash_array: newArray})
 
@@ -87,10 +87,10 @@ function Manager() {
   } else {
     let oldHashArray = secondResponse.data.file_hash_array
     oldHashArray.push(latestHash)
-    let deletedResponse = await axios.delete(`http://localhost:3002/${secondResponse.data.__id}`)
+    let deletedResponse = await axios.delete(`https://fierce-bayou-82397.herokuapp.com/${secondResponse.data.__id}`)
 
     if (deletedResponse) {
-      axios.post('http://localhost:3002/register',
+      axios.post('https://fierce-bayou-82397.herokuapp.com/register',
       {wallet_address: `${userAddress}`,
       file_hash_array: oldHashArray})
     
